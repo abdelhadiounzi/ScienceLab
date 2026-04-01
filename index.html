@@ -1,0 +1,1069 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Science Lab | Débat Universitaire Trilingue</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0a0a0a;
+            --secondary: #1a1a1a;
+            --accent: #c9a227;
+            --text: #f5f5f5;
+            --muted: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--primary);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 0;
+        }
+
+        .navbar-brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--accent) !important;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .nav-link {
+            color: var(--text) !important;
+            font-weight: 300;
+            letter-spacing: 1px;
+            margin-left: 2rem;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: var(--accent) !important;
+        }
+
+        /* Hero */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(201, 162, 39, 0.1) 0%, transparent 70%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            letter-spacing: 5px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--muted);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+        }
+
+        .hero-theme {
+            font-size: 1.5rem;
+            color: var(--accent);
+            max-width: 800px;
+            margin: 0 auto;
+            font-style: italic;
+        }
+
+        .lang-badges {
+            margin-top: 3rem;
+        }
+
+        .lang-badge {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            margin: 0 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 30px;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            transition: all 0.3s;
+        }
+
+        .lang-badge:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        /* Sections */
+        section {
+            padding: 6rem 0;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 2px;
+            background: var(--accent);
+            margin: 1rem auto;
+        }
+
+        /* Video Simulation */
+        .video-container {
+            background: var(--secondary);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .video-header {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .video-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ff5f57;
+        }
+
+        .video-dot:nth-child(2) { background: #febc2e; }
+        .video-dot:nth-child(3) { background: #28c840; }
+
+        .video-title {
+            flex: 1;
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        #debate-stage {
+            width: 100%;
+            height: 600px;
+            background: linear-gradient(180deg, #0f0f0f 0%, #1a1a1a 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Stage Elements */
+        .stage-floor {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40%;
+            background: linear-gradient(180deg, transparent 0%, rgba(201, 162, 39, 0.05) 100%);
+            border-top: 1px solid rgba(201, 162, 39, 0.2);
+        }
+
+        .podium {
+            position: absolute;
+            bottom: 20%;
+            width: 140px;
+            height: 200px;
+            background: linear-gradient(180deg, #2a2a2a 0%, #1a1a1a 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            padding-bottom: 1.5rem;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .podium.active {
+            border-color: var(--accent);
+            box-shadow: 0 0 40px rgba(201, 162, 39, 0.4);
+            transform: scale(1.08) translateY(-10px);
+            background: linear-gradient(180deg, #3a3a3a 0%, #2a2a2a 100%);
+        }
+
+        .podium.waiting {
+            opacity: 0.6;
+            transform: scale(0.95);
+        }
+
+        .podium-pro { left: 15%; }
+        .podium-contra { right: 15%; }
+
+        .podium-label {
+            font-size: 0.75rem;
+            color: var(--muted);
+            margin-bottom: 0.5rem;
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+
+        .speaker-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #333 0%, #222 100%);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            border: 3px solid transparent;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .podium.active .speaker-avatar {
+            border-color: var(--accent);
+            background: linear-gradient(135deg, rgba(201, 162, 39, 0.3) 0%, rgba(201, 162, 39, 0.1) 100%);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(201, 162, 39, 0.4); }
+            50% { box-shadow: 0 0 0 20px rgba(201, 162, 39, 0); }
+        }
+
+        .speaker-lang {
+            font-size: 0.9rem;
+            color: var(--accent);
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .speaker-name {
+            font-size: 0.75rem;
+            color: var(--muted);
+            margin-top: 0.25rem;
+        }
+
+        /* Moderator */
+        .moderator {
+            position: absolute;
+            bottom: 5%;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            opacity: 0;
+            transition: all 0.5s;
+        }
+
+        .moderator.active {
+            opacity: 1;
+            transform: translateX(-50%) translateY(-10px);
+        }
+
+        .moderator-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent) 0%, #b8941f 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin: 0 auto 0.5rem;
+            box-shadow: 0 0 20px rgba(201, 162, 39, 0.5);
+        }
+
+        .moderator-label {
+            font-size: 0.7rem;
+            color: var(--accent);
+            letter-spacing: 1px;
+        }
+
+        /* Info Display */
+        .info-display {
+            position: absolute;
+            top: 8%;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            width: 90%;
+            z-index: 10;
+        }
+
+        .round-indicator {
+            font-size: 0.85rem;
+            color: var(--accent);
+            letter-spacing: 4px;
+            margin-bottom: 0.5rem;
+            opacity: 0;
+            transition: opacity 0.5s;
+            font-weight: 600;
+        }
+
+        .topic-display {
+            font-size: 1.4rem;
+            font-style: italic;
+            margin-bottom: 1rem;
+            opacity: 0;
+            transition: opacity 0.5s;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .axis-display {
+            background: rgba(201, 162, 39, 0.1);
+            border: 1px solid rgba(201, 162, 39, 0.3);
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            display: inline-block;
+            opacity: 0;
+            transition: opacity 0.5s;
+            font-size: 0.9rem;
+            max-width: 600px;
+        }
+
+        .timer {
+            position: absolute;
+            top: 45%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 5rem;
+            font-weight: 300;
+            color: var(--accent);
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-family: 'Inter', monospace;
+            text-shadow: 0 0 30px rgba(201, 162, 39, 0.3);
+        }
+
+        .phase-indicator {
+            position: absolute;
+            bottom: 12%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.85rem;
+            color: var(--muted);
+            letter-spacing: 2px;
+            opacity: 0;
+            transition: opacity 0.5s;
+            text-transform: uppercase;
+        }
+
+        /* Controls */
+        .video-controls {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 1.5rem;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            align-items: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .control-btn {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--text);
+            padding: 0.8rem 2rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .control-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .control-btn.primary {
+            background: var(--accent);
+            color: var(--primary);
+            border-color: var(--accent);
+            font-weight: 600;
+        }
+
+        .control-btn.primary:hover {
+            background: #b8941f;
+            box-shadow: 0 5px 20px rgba(201, 162, 39, 0.3);
+        }
+
+        .progress-bar-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent) 0%, #ffd700 100%);
+            width: 0%;
+            transition: width 0.1s linear;
+            box-shadow: 0 0 10px rgba(201, 162, 39, 0.5);
+        }
+
+        /* Cards */
+        .info-card {
+            background: var(--secondary);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 3rem;
+            border-radius: 12px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .info-card:hover {
+            border-color: rgba(201, 162, 39, 0.3);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .info-number {
+            font-size: 3rem;
+            color: var(--accent);
+            font-weight: 300;
+            margin-bottom: 1rem;
+        }
+
+        /* Table */
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+        }
+
+        .schedule-table th,
+        .schedule-table td {
+            padding: 1.5rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .schedule-table th {
+            color: var(--accent);
+            font-weight: 400;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        .schedule-table td {
+            color: var(--text);
+        }
+
+        .schedule-table tr:hover {
+            background: rgba(201, 162, 39, 0.03);
+        }
+
+        .lang-tag {
+            display: inline-block;
+            padding: 0.4rem 1.2rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-right: 0.5rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .tag-ar { background: rgba(0, 108, 53, 0.15); color: #00c853; border: 1px solid rgba(0, 200, 83, 0.3); }
+        .tag-en { background: rgba(1, 33, 105, 0.15); color: #448aff; border: 1px solid rgba(68, 138, 255, 0.3); }
+        .tag-fr { background: rgba(239, 65, 53, 0.15); color: #ff5252; border: 1px solid rgba(255, 82, 82, 0.3); }
+
+        /* Status badges */
+        .status-badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .status-presentation { background: rgba(68, 138, 255, 0.15); color: #448aff; }
+        .status-refutation { background: rgba(255, 82, 82, 0.15); color: #ff5252; }
+        .status-question { background: rgba(201, 162, 39, 0.15); color: var(--accent); }
+        .status-jury { background: rgba(0, 200, 83, 0.15); color: #00c853; }
+
+        /* Footer */
+        footer {
+            background: var(--secondary);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 3rem 0;
+            text-align: center;
+            color: var(--muted);
+        }
+
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 3rem; }
+            #debate-stage { height: 500px; }
+            .podium { width: 100px; height: 150px; }
+            .podium-pro { left: 5%; }
+            .podium-contra { right: 5%; }
+            .timer { font-size: 3rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">SCIENCE LAB</a>
+            <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="nav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#accueil">Accueil</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#simulation">Simulation</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#format">Format</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#organisation">Organisation</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero" id="accueil">
+        <div class="hero-content">
+            <h1>SCIENCE LAB</h1>
+            <p class="hero-subtitle">Débat Universitaire Scientifique</p>
+            <p class="hero-theme">"L'Intelligence Artificielle : La dernière grande innovation de l'humanité ?"</p>
+            <div class="lang-badges">
+                <span class="lang-badge">العربية</span>
+                <span class="lang-badge">ENGLISH</span>
+                <span class="lang-badge">FRANÇAIS</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Simulation -->
+    <section id="simulation" class="container">
+        <h2 class="section-title">Simulation du Débat</h2>
+        
+        <div class="video-container">
+            <div class="video-header">
+                <div class="video-dot"></div>
+                <div class="video-dot"></div>
+                <div class="video-dot"></div>
+                <div class="video-title">Science Lab - Débat Trilingue (Simulation Interactive)</div>
+            </div>
+            
+            <div id="debate-stage">
+                <div class="stage-floor"></div>
+                
+                <div class="info-display">
+                    <div class="round-indicator" id="round-indicator">ROUND 1</div>
+                    <div class="topic-display" id="topic-display">L'IA dans l'éducation</div>
+                    <div class="axis-display" id="axis-display">Axe 1: Accessibilité et démocratisation du savoir</div>
+                </div>
+
+                <div class="timer" id="timer">04:00</div>
+
+                <div class="podium podium-pro" id="podium-pro">
+                    <div class="podium-label">POUR</div>
+                    <div class="speaker-avatar">🎓</div>
+                    <div class="speaker-lang" id="pro-lang">AR</div>
+                    <div class="speaker-name">Équipe Pro</div>
+                </div>
+
+                <div class="podium podium-contra" id="podium-contra">
+                    <div class="podium-label">CONTRE</div>
+                    <div class="speaker-avatar">🎓</div>
+                    <div class="speaker-lang" id="contra-lang">AR</div>
+                    <div class="speaker-name">Équipe Contra</div>
+                </div>
+
+                <div class="moderator" id="moderator">
+                    <div class="moderator-avatar">🎙️</div>
+                    <div class="moderator-label">MODÉRATRICE</div>
+                </div>
+
+                <div class="phase-indicator" id="phase-indicator">Présentation initiale</div>
+                
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="progress-bar"></div>
+                </div>
+            </div>
+
+            <div class="video-controls">
+                <button class="control-btn" onclick="resetSimulation()">↺ Réinitialiser</button>
+                <button class="control-btn primary" id="play-btn" onclick="toggleSimulation()">▶ Démarrer</button>
+                <button class="control-btn" onclick="skipPhase()">⟩ Suivant</button>
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-md-4">
+                <div class="info-card">
+                    <div class="info-number">3</div>
+                    <h5>Langues</h5>
+                    <p class="text-muted">Arabe, Anglais, Français<br>Chaque langue traite un axe différent</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="info-card">
+                    <div class="info-number">9</div>
+                    <h5>Phases</h5>
+                    <p class="text-muted" >Présentation + Réfutation + Questions<br>par langue</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="info-card">
+                    <div class="info-number">30</div>
+                    <h5>Minutes</h5>
+                    <p class="text-muted">Durée totale du débat<br>avec questions du jury</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Format -->
+    <section id="format" class="container">
+        <h2 class="section-title">Déroulement Détaillé</h2>
+        
+        <table class="schedule-table">
+            <thead>
+                <tr>
+                    <th>Phase</th>
+                    <th>Langue</th>
+                    <th>Action</th>
+                    <th>Durée</th>
+                    <th>Statut</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td><span class="lang-tag tag-ar">ARABE</span></td>
+                    <td>Présentation initiale - Pro & Contra</td>
+                    <td>4 min × 2</td>
+                    <td><span class="status-badge status-presentation">PRÉSENTATION</span></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td><span class="lang-tag tag-en">ENGLISH</span></td>
+                    <td>Présentation initiale - Pro & Contra</td>
+                    <td>4 min × 2</td>
+                    <td><span class="status-badge status-presentation">PRÉSENTATION</span></td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td><span class="lang-tag tag-fr">FRANÇAIS</span></td>
+                    <td>Présentation initiale - Pro & Contra</td>
+                    <td>4 min × 2</td>
+                    <td><span class="status-badge status-presentation">PRÉSENTATION</span></td>
+                </tr>
+                <tr style="background: rgba(255, 82, 82, 0.03);">
+                    <td>4</td>
+                    <td><span class="lang-tag tag-ar">ARABE</span></td>
+                    <td>Réfutation - Pro & Contra</td>
+                    <td>2 min × 2</td>
+                    <td><span class="status-badge status-refutation">RÉFUTATION</span></td>
+                </tr>
+                <tr style="background: rgba(201, 162, 39, 0.05);">
+                    <td>5</td>
+                    <td><span class="lang-tag tag-ar">ARABE</span></td>
+                    <td>Questions modératrice - Ajout d'arguments</td>
+                    <td>1 min × 2</td>
+                    <td><span class="status-badge status-question">QUESTIONS</span></td>
+                </tr>
+                <tr style="background: rgba(255, 82, 82, 0.03);">
+                    <td>6</td>
+                    <td><span class="lang-tag tag-en">ENGLISH</span></td>
+                    <td>Réfutation - Pro & Contra</td>
+                    <td>2 min × 2</td>
+                    <td><span class="status-badge status-refutation">RÉFUTATION</span></td>
+                </tr>
+                <tr style="background: rgba(201, 162, 39, 0.05);">
+                    <td>7</td>
+                    <td><span class="lang-tag tag-en">ENGLISH</span></td>
+                    <td>Questions modératrice - Ajout d'arguments</td>
+                    <td>1 min × 2</td>
+                    <td><span class="status-badge status-question">QUESTIONS</span></td>
+                </tr>
+                <tr style="background: rgba(255, 82, 82, 0.03);">
+                    <td>8</td>
+                    <td><span class="lang-tag tag-fr">FRANÇAIS</span></td>
+                    <td>Réfutation - Pro & Contra</td>
+                    <td>2 min × 2</td>
+                    <td><span class="status-badge status-refutation">RÉFUTATION</span></td>
+                </tr>
+                <tr style="background: rgba(201, 162, 39, 0.05);">
+                    <td>9</td>
+                    <td><span class="lang-tag tag-fr">FRANÇAIS</span></td>
+                    <td>Questions modératrice - Ajout final</td>
+                    <td>1 min × 2</td>
+                    <td><span class="status-badge status-question">QUESTIONS</span></td>
+                </tr>
+                <tr style="background: rgba(0, 200, 83, 0.05);">
+                    <td>10</td>
+                    <td><span class="lang-tag" style="background: rgba(0, 200, 83, 0.15); color: #00c853; border: 1px solid rgba(0, 200, 83, 0.3);">JURY</span></td>
+                    <td>Mot du jury et délibération</td>
+                    <td>5 min</td>
+                    <td><span class="status-badge status-jury">DÉLIBÉRATION</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Organisation -->
+    <section id="organisation" class="container">
+        <h2 class="section-title">Structure du Tournoi</h2>
+        
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <div class="info-card text-start">
+                    <h4 class="mb-4">Règles Fondamentales</h4>
+                    <ul class="list-unstyled">
+                        <li class="mb-3">✓ <strong>8 équipes maximum</strong> en élimination directe</li>
+                        <li class="mb-3">✓ <strong>3 intervenants par équipe</strong> (un par langue)</li>
+                        <li class="mb-3">✓ <strong>Positions tirées au sort</strong> avant chaque débat</li>
+                        <li class="mb-3">✓ <strong>Notes autorisées</strong> pendant les discours</li>
+                        <li class="mb-3">✓ <strong>Questions modératrice</strong> après chaque réfutation (1 min/équipe)</li>
+                        <li class="mb-3">✓ <strong>Mot du jury</strong> à la fin de chaque débat</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="info-card text-start">
+                    <h4 class="mb-4">Critères d'Évaluation</h4>
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between mb-1">
+                            <span>Argumentation scientifique</span>
+                            <span>30%</span>
+                        </div>
+                        <div class="progress" style="height: 4px; background: rgba(255,255,255,0.1);">
+                            <div class="progress-bar bg-warning" style="width: 30%; background-color: var(--accent) !important;"></div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between mb-1">
+                            <span>Maîtrise linguistique</span>
+                            <span>25%</span>
+                        </div>
+                        <div class="progress" style="height: 4px; background: rgba(255,255,255,0.1);">
+                            <div class="progress-bar bg-warning" style="width: 25%; background-color: var(--accent) !important;"></div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between mb-1">
+                            <span>Réfutation & Réactivité</span>
+                            <span>25%</span>
+                        </div>
+                        <div class="progress" style="height: 4px; background: rgba(255,255,255,0.1);">
+                            <div class="progress-bar bg-warning" style="width: 25%; background-color: var(--accent) !important;"></div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between mb-1">
+                            <span>Esprit critique</span>
+                            <span>20%</span>
+                        </div>
+                        <div class="progress" style="height: 4px; background: rgba(255,255,255,0.1);">
+                            <div class="progress-bar bg-warning" style="width: 20%; background-color: var(--accent) !important;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-logo">SCIENCE LAB</div>
+            <p>Université Cadi Ayyad | FSSM Debate Club × Bridge Club</p>
+            <p class="small mt-2">Semaine Scientifique 2026</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Simulation Data - Updated with moderator questions after each refutation and jury final word
+        const phases = [
+            // Round 1 - Presentations
+            { lang: 'AR', team: 'pro', action: 'Présentation', duration: 4, axis: 1, topic: 'L\'IA dans l\'éducation', type: 'presentation' },
+            { lang: 'AR', team: 'contra', action: 'Présentation', duration: 4, axis: 1, topic: 'L\'IA dans l\'éducation', type: 'presentation' },
+            { lang: 'EN', team: 'pro', action: 'Présentation', duration: 4, axis: 2, topic: 'L\'IA dans l\'éducation', type: 'presentation' },
+            { lang: 'EN', team: 'contra', action: 'Présentation', duration: 4, axis: 2, topic: 'L\'IA dans l\'éducation', type: 'presentation' },
+            { lang: 'FR', team: 'pro', action: 'Présentation', duration: 4, axis: 3, topic: 'L\'IA dans l\'éducation', type: 'presentation' },
+            { lang: 'FR', team: 'contra', action: 'Présentation', duration: 4, axis: 3, topic: 'L\'IA dans l\'éducation', type: 'presentation' },
+            
+            // Round 2 - Refutation AR + Questions
+            { lang: 'AR', team: 'pro', action: 'Réfutation', duration: 2, axis: 'critique', topic: 'L\'IA dans l\'éducation', type: 'refutation' },
+            { lang: 'AR', team: 'contra', action: 'Réfutation', duration: 2, axis: 'critique', topic: 'L\'IA dans l\'éducation', type: 'refutation' },
+            { lang: 'AR', team: 'mod', action: 'Questions Modératrice', duration: 1, axis: 'questions', topic: 'Ajout d\'arguments - Équipe AR', type: 'question', questionFor: 'pro' },
+            { lang: 'AR', team: 'mod', action: 'Questions Modératrice', duration: 1, axis: 'questions', topic: 'Ajout d\'arguments - Équipe AR', type: 'question', questionFor: 'contra' },
+            
+            // Round 3 - Refutation EN + Questions
+            { lang: 'EN', team: 'pro', action: 'Réfutation', duration: 2, axis: 'critique', topic: 'L\'IA dans l\'éducation', type: 'refutation' },
+            { lang: 'EN', team: 'contra', action: 'Réfutation', duration: 2, axis: 'critique', topic: 'L\'IA dans l\'éducation', type: 'refutation' },
+            { lang: 'EN', team: 'mod', action: 'Questions Modératrice', duration: 1, axis: 'questions', topic: 'Ajout d\'arguments - Équipe EN', type: 'question', questionFor: 'pro' },
+            { lang: 'EN', team: 'mod', action: 'Questions Modératrice', duration: 1, axis: 'questions', topic: 'Ajout d\'arguments - Équipe EN', type: 'question', questionFor: 'contra' },
+            
+            // Round 4 - Refutation FR + Questions
+            { lang: 'FR', team: 'pro', action: 'Réfutation', duration: 2, axis: 'critique', topic: 'L\'IA dans l\'éducation', type: 'refutation' },
+            { lang: 'FR', team: 'contra', action: 'Réfutation', duration: 2, axis: 'critique', topic: 'L\'IA dans l\'éducation', type: 'refutation' },
+            { lang: 'FR', team: 'mod', action: 'Questions Modératrice', duration: 1, axis: 'questions', topic: 'Ajout d\'arguments - Équipe FR', type: 'question', questionFor: 'pro' },
+            { lang: 'FR', team: 'mod', action: 'Questions Modératrice', duration: 1, axis: 'questions', topic: 'Ajout d\'arguments - Équipe FR', type: 'question', questionFor: 'contra' },
+            
+            // Final - Jury
+            { lang: 'ALL', team: 'jury', action: 'Mot du Jury', duration: 5, axis: 'deliberation', topic: 'Délibération et évaluation', type: 'jury' }
+        ];
+
+        let currentPhase = 0;
+        let isPlaying = false;
+        let timerInterval;
+        let currentTime = 0;
+
+        const axes = {
+            1: 'Axe 1: Accessibilité et démocratisation du savoir',
+            2: 'Axe 2: Personnalisation et efficacité pédagogique',
+            3: 'Axe 3: Impact sociétal et éthique',
+            'critique': 'Réfutation des arguments adverses',
+            'questions': 'Questions de la modératrice - Ajout d\'éléments',
+            'deliberation': 'Délibération du jury académique'
+        };
+
+        const langNames = {
+            'AR': 'العربية',
+            'EN': 'ENGLISH',
+            'FR': 'FRANÇAIS',
+            'ALL': 'JURY'
+        };
+
+        function updateDisplay() {
+            const phase = phases[currentPhase];
+            const proPodium = document.getElementById('podium-pro');
+            const contraPodium = document.getElementById('podium-contra');
+            const moderator = document.getElementById('moderator');
+            
+            // Reset all
+            proPodium.classList.remove('active', 'waiting');
+            contraPodium.classList.remove('active', 'waiting');
+            moderator.classList.remove('active');
+            
+            // Handle Jury phase
+            if (phase.team === 'jury') {
+                proPodium.classList.add('waiting');
+                contraPodium.classList.add('waiting');
+                document.getElementById('phase-indicator').textContent = 'MOT DU JURY - DÉLIBÉRATION FINALE';
+                document.getElementById('pro-lang').textContent = '⚖️';
+                document.getElementById('contra-lang').textContent = '⚖️';
+            }
+            // Handle Moderator questions
+            else if (phase.team === 'mod') {
+                moderator.classList.add('active');
+                proPodium.classList.add('waiting');
+                contraPodium.classList.add('waiting');
+                
+                // Highlight which team is answering
+                if (phase.questionFor === 'pro') {
+                    proPodium.classList.remove('waiting');
+                    proPodium.classList.add('active');
+                } else {
+                    contraPodium.classList.remove('waiting');
+                    contraPodium.classList.add('active');
+                }
+                
+                document.getElementById('pro-lang').textContent = phase.lang;
+                document.getElementById('contra-lang').textContent = phase.lang;
+            }
+            // Handle normal debate phases
+            else {
+                if (phase.team === 'pro') {
+                    proPodium.classList.add('active');
+                    contraPodium.classList.add('waiting');
+                } else {
+                    contraPodium.classList.add('active');
+                    proPodium.classList.add('waiting');
+                }
+                document.getElementById('pro-lang').textContent = phase.lang;
+                document.getElementById('contra-lang').textContent = phase.lang;
+            }
+
+            // Update text displays
+            const roundText = phase.type === 'jury' ? 'DÉLIBÉRATION FINALE' : 
+                             phase.type === 'question' ? 'QUESTIONS MODÉRATRICE' : 
+                             `ROUND 1 - ${phase.action.toUpperCase()}`;
+            
+            document.getElementById('round-indicator').textContent = roundText;
+            document.getElementById('round-indicator').style.opacity = 1;
+            
+            document.getElementById('topic-display').textContent = phase.topic;
+            document.getElementById('topic-display').style.opacity = 1;
+            
+            document.getElementById('axis-display').textContent = axes[phase.axis];
+            document.getElementById('axis-display').style.opacity = 1;
+            
+            // Phase indicator with better description
+            let phaseText = '';
+            if (phase.type === 'question') {
+                phaseText = `🎙️ Modératrice → Équipe ${phase.questionFor.toUpperCase()} (${phase.lang}) - ${phase.duration} min`;
+            } else if (phase.type === 'jury') {
+                phaseText = '⚖️ Le jury prend la parole pour la délibération finale';
+            } else {
+                phaseText = `${phase.action} - ${langNames[phase.lang]} (${phase.duration} min)`;
+            }
+            
+            document.getElementById('phase-indicator').textContent = phaseText;
+            document.getElementById('phase-indicator').style.opacity = 1;
+
+            // Reset timer
+            currentTime = phase.duration * 60;
+            updateTimer();
+        }
+
+        function updateTimer() {
+            const minutes = Math.floor(currentTime / 60);
+            const seconds = currentTime % 60;
+            document.getElementById('timer').textContent = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            document.getElementById('timer').style.opacity = 1;
+            
+            // Update progress bar
+            const totalTime = phases[currentPhase].duration * 60;
+            const progress = ((totalTime - currentTime) / totalTime) * 100;
+            document.getElementById('progress-bar').style.width = progress + '%';
+        }
+
+        function nextPhase() {
+            if (currentPhase < phases.length - 1) {
+                currentPhase++;
+                updateDisplay();
+                return true;
+            } else {
+                endSimulation();
+                return false;
+            }
+        }
+
+        function toggleSimulation() {
+            const btn = document.getElementById('play-btn');
+            
+            if (isPlaying) {
+                clearInterval(timerInterval);
+                isPlaying = false;
+                btn.textContent = '▶ Reprendre';
+                btn.classList.remove('primary');
+            } else {
+                isPlaying = true;
+                btn.textContent = '❚❚ Pause';
+                btn.classList.add('primary');
+                
+                if (currentPhase === 0 && currentTime === 0) {
+                    updateDisplay();
+                }
+                
+                timerInterval = setInterval(() => {
+                    if (currentTime > 0) {
+                        currentTime--;
+                        updateTimer();
+                    } else {
+                        if (!nextPhase()) {
+                            clearInterval(timerInterval);
+                            isPlaying = false;
+                        }
+                    }
+                }, 1000); // 1 second = 1 minute for demo
+            }
+        }
+
+        function skipPhase() {
+            nextPhase();
+        }
+
+        function resetSimulation() {
+            clearInterval(timerInterval);
+            isPlaying = false;
+            currentPhase = 0;
+            currentTime = 0;
+            document.getElementById('play-btn').textContent = '▶ Démarrer';
+            document.getElementById('play-btn').classList.add('primary');
+            document.getElementById('timer').style.opacity = 0;
+            document.getElementById('round-indicator').style.opacity = 0;
+            document.getElementById('topic-display').style.opacity = 0;
+            document.getElementById('axis-display').style.opacity = 0;
+            document.getElementById('phase-indicator').style.opacity = 0;
+            document.getElementById('progress-bar').style.width = '0%';
+            document.getElementById('podium-pro').classList.remove('active', 'waiting');
+            document.getElementById('podium-contra').classList.remove('active', 'waiting');
+            document.getElementById('moderator').classList.remove('active');
+            document.getElementById('pro-lang').textContent = 'AR';
+            document.getElementById('contra-lang').textContent = 'AR';
+        }
+
+        function endSimulation() {
+            document.getElementById('phase-indicator').textContent = '✓ DÉBAT TERMINÉ - DÉCISION DU JURY RENDUE';
+            document.getElementById('timer').style.opacity = 0;
+            document.getElementById('play-btn').textContent = '▶ Rejouer';
+            document.getElementById('podium-pro').classList.remove('active', 'waiting');
+            document.getElementById('podium-contra').classList.remove('active', 'waiting');
+            document.getElementById('moderator').classList.remove('active');
+            isPlaying = false;
+        }
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Initialize
+        resetSimulation();
+    </script>
+</body>
+</html>
